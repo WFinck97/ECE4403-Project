@@ -23,11 +23,11 @@ public class Driver {
 		// The 2nd argument provided to the constructor indicates that the first line of the file
 		// contains the label for each column
 		//
-		CSVParser csvParser = new CSVParser(new FileReader("absences.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
+		CSVParser absencesParser = new CSVParser(new FileReader("absences.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
 
 		// After constructed, we can loop through each row of the CSV file using a for-each loop
 		// We access the data in each column using the corresponding column label
-		for (CSVRecord record : csvParser) {
+		for (CSVRecord record : absencesParser) {
 			AbsentTeacher absentTeacher = new AbsentTeacher();
 			ShiftProperties shift = new ShiftProperties();
 			String date = record.get("date");
@@ -49,9 +49,33 @@ public class Driver {
 		
 		
 		System.out.println("first index: " + absentTeachers.get(1).getName());
+		System.out.println("first index: " + absentTeachers.get(0).getName());
 		
 		// Remember to close all input and output streams when you are done processing them
-		csvParser.close();
+		absencesParser.close();
+		
+		CSVParser substitutesParser = new CSVParser(new FileReader("substitutes.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
+
+		// After constructed, we can loop through each row of the CSV file using a for-each loop
+		// We access the data in each column using the corresponding column label
+		for (CSVRecord record : substitutesParser) {
+			SubstituteTeacher substituteTeacher = new SubstituteTeacher();
+			String name = record.get("name");
+			String teachables = record.get("teachables");
+			String blacklist = record.get("blacklist");
+			
+			substituteTeacher.setName(name);
+			substituteTeachers.add(substituteTeacher);
+		}
+		
+		
+		
+		System.out.println("first index: " + substituteTeachers.get(1).getName());
+		System.out.println("first index: " + substituteTeachers.get(0).getName());
+		
+		// Remember to close all input and output streams when you are done processing them
+		substitutesParser.close();
 	}
+	
 
 }
