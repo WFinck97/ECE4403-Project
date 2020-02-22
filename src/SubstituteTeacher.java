@@ -1,4 +1,22 @@
+import java.util.ArrayList;
 
 public class SubstituteTeacher {
-
+	private String name;
+	private ArrayList<ShiftProperties> shifts;
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setShift(ShiftProperties shift) {
+		this.shifts.add(shift);
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public ArrayList<ShiftProperties> getShifts() {
+		return shifts;
+	}
 }
