@@ -1,4 +1,5 @@
-"Monday, January 6"	AM	Jane Smith	FHS	"math
+date,period,teacher,location,teachables
+"Monday, January 6",AM,Jane Smith,FHS,"math
 science"
-"Wednesday, January 8"	PM	John Doe	Leo Hayes	"english
+"Wednesday, January 8",PM,John Doe,Leo Hayes,"english
 social studies"
