@@ -24,10 +24,12 @@ public class Driver {
 		// After constructed, we can loop through each row of the CSV file using a for-each loop
 		// We access the data in each column using the corresponding column label
 		for (CSVRecord record : csvParser) {
-			String name = record.get("name");
-			String phoneNumber = record.get("phone number");
-			String email = record.get("email");
-			System.out.println("CSV Record: " + name + " | " + phoneNumber + " | " + email);
+			String date = record.get("date");
+			String period = record.get("period");
+			String teacher = record.get("teacher");
+			String location = record.get("location");
+			String teachables = record.get("teachables");
+			System.out.println("CSV Record: " + date + " | " + period + " | " + teacher + " | " + location + " | " + teachables);
 		}
 		
 		// Remember to close all input and output streams when you are done processing them
