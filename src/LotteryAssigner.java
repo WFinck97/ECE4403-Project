@@ -7,11 +7,15 @@ public class LotteryAssigner {
 	
 	public static void RandomAssign(ArrayList<AbsentTeacher> absentTeachers, ArrayList<SubstituteTeacher> substituteTeachers) {
 		
+		int numSubstitutes;
+		int randSubstitute;
+		
 		Random randomGenerator = new Random();
 		
 		//for each teacher in the absent teacher list
 		for(AbsentTeacher teacher : absentTeachers) {
 			ArrayList<ShiftProperties> teacherShifts = teacher.getShifts();
+			System.out.println("teacher: " + teacher.getName());
 			
 			//for each shift for one absent teacher - assuming that multiple absent shifts can be assigned to a single teacher
 			for(ShiftProperties teacherShift : teacherShifts) {
@@ -23,12 +27,14 @@ public class LotteryAssigner {
 				while(!shiftAssigned) {
 					
 					//pick a substitute randomly and check whether or not they have already been assigned that shift.
-					int numSubstitutes = substituteTeachers.size();
-					int randSubstitute = randomGenerator.nextInt(numSubstitutes - 1);
+					numSubstitutes = substituteTeachers.size();
+					randSubstitute = randomGenerator.nextInt(numSubstitutes);
 					SubstituteTeacher substituteTeacher = substituteTeachers.get(randSubstitute);
+					System.out.println("Random sub: "+substituteTeacher.getName());
 					
 					//get shifts from randomly picked substitute teacher
 					ArrayList<ShiftProperties> substituteShifts = substituteTeacher.getShifts();
+					System.out.println("subshift: " + substituteShifts.size());
 					
 					//only loop through assigned shifts if the teacher has been assigned anything
 					if(substituteShifts.size() > 0) {
@@ -42,6 +48,13 @@ public class LotteryAssigner {
 							}
 						}
 					}
+					else if(substituteShifts.size() == 1) {
+						System.out.println("true");
+						substituteTeacher.setShift(teacherShift);
+						shiftAssigned = true;
+						
+					}
+					
 					else {
 						substituteTeacher.setShift(teacherShift);
 						shiftAssigned = true;

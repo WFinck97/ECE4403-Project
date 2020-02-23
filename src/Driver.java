@@ -58,7 +58,13 @@ public class Driver {
 		
 		LotteryAssigner.RandomAssign(absentTeachers, substituteTeachers);
 		
-		
+		for(SubstituteTeacher subTeacher : substituteTeachers) {
+			System.out.println("name: " + subTeacher.getName());
+			
+			for(ShiftProperties shift : subTeacher.getShifts()) {
+				System.out.println("shift: " + shift.getDate() + " | " + shift.getPeriod());
+			}
+		}
 	}
 	
 

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class SubstituteTeacher {
 	private String name;
-	private ArrayList<ShiftProperties> shifts;
+	private ArrayList<ShiftProperties> shifts = new ArrayList<ShiftProperties>();
 	
 	public void setName(String name) {
 		this.name = name;
