@@ -55,6 +55,10 @@ public class Driver {
 		
 		// call the lottery function and assign shifts to substitutes
 		// take the assignments and put in a csv output file
+		
+		LotteryAssigner.RandomAssign(absentTeachers, substituteTeachers);
+		
+		
 	}
 	
 

@@ -16,22 +16,39 @@ public class LotteryAssigner {
 			//for each shift for one absent teacher - assuming that multiple absent shifts can be assigned to a single teacher
 			for(ShiftProperties teacherShift : teacherShifts) {
 				
-				//pick a substitute randomly and check whether or not they have already been assigned that shift.
-				int numSubstitutes = substituteTeachers.size();
-				int randSubstitute = randomGenerator.nextInt(numSubstitutes - 1);
-				SubstituteTeacher substituteTeacher = substituteTeachers.get(randSubstitute);
 				
-				//get shifts from randomly picked substitute teacher
-				ArrayList<ShiftProperties> absentShifts = substituteTeacher.getShifts();
+				boolean shiftAssigned = false;
 				
-				//only loop through assigned shifts if the teacher has been assigned anything
-				if(absentShifts.size() > 0) {
-					for
-				}
-				else {
+				//keep randomly picking a substitute teacher until the shift can be assigned.
+				while(!shiftAssigned) {
 					
-				}
-			}
-		}
+					//pick a substitute randomly and check whether or not they have already been assigned that shift.
+					int numSubstitutes = substituteTeachers.size();
+					int randSubstitute = randomGenerator.nextInt(numSubstitutes - 1);
+					SubstituteTeacher substituteTeacher = substituteTeachers.get(randSubstitute);
+					
+					//get shifts from randomly picked substitute teacher
+					ArrayList<ShiftProperties> substituteShifts = substituteTeacher.getShifts();
+					
+					//only loop through assigned shifts if the teacher has been assigned anything
+					if(substituteShifts.size() > 0) {
+						for(ShiftProperties substituteShift : substituteShifts) {
+							if(substituteShift.getDate().equals(teacherShift.getDate()) && substituteShift.getPeriod().equals(teacherShift.getPeriod())) {
+								shiftAssigned = false;
+							}
+							else {
+								substituteTeacher.setShift(teacherShift);
+								shiftAssigned = true;
+							}
+						}
+					}
+					else {
+						substituteTeacher.setShift(teacherShift);
+						shiftAssigned = true;
+					}
+				} //end while loop
+				
+			} //end loop that goes through each shift assigned to one teacher
+		}//end loop that goes through each teacher
 	}
 }
