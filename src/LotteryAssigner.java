@@ -9,6 +9,8 @@ public class LotteryAssigner {
 		
 		int numSubstitutes;
 		int randSubstitute;
+		SubstituteTeacher substituteTeacher;
+		ArrayList<ShiftProperties> substituteShifts;
 		
 		Random randomGenerator = new Random();
 		
@@ -29,36 +31,48 @@ public class LotteryAssigner {
 					//pick a substitute randomly and check whether or not they have already been assigned that shift.
 					numSubstitutes = substituteTeachers.size();
 					randSubstitute = randomGenerator.nextInt(numSubstitutes);
-					SubstituteTeacher substituteTeacher = substituteTeachers.get(randSubstitute);
+					substituteTeacher = substituteTeachers.get(randSubstitute);
 					System.out.println("Random sub: "+substituteTeacher.getName());
 					
 					//get shifts from randomly picked substitute teacher
-					ArrayList<ShiftProperties> substituteShifts = substituteTeacher.getShifts();
+					substituteShifts = substituteTeacher.getShifts();
 					System.out.println("subshift: " + substituteShifts.size());
+					System.out.println("comparing: " + (substituteShifts.size() > 0));
 					
 					//only loop through assigned shifts if the teacher has been assigned anything
 					if(substituteShifts.size() > 0) {
-						for(ShiftProperties substituteShift : substituteShifts) {
-							if(substituteShift.getDate().equals(teacherShift.getDate()) && substituteShift.getPeriod().equals(teacherShift.getPeriod())) {
+						
+						for(int i = 0; i < substituteShifts.size(); i++) {
+							System.out.println("comparing date: " + substituteShifts.get(i).getDate().equals(teacherShift.getDate()));
+							if(substituteShifts.get(i).getDate().equals(teacherShift.getDate()) && substituteShifts.get(i).getPeriod().equals(teacherShift.getPeriod())) {
 								shiftAssigned = false;
 							}
 							else {
 								substituteTeacher.setShift(teacherShift);
 								shiftAssigned = true;
+								System.out.println("Got assigned on: " + i);
+								break;
 							}
 						}
-					}
-					else if(substituteShifts.size() == 1) {
-						System.out.println("true");
-						substituteTeacher.setShift(teacherShift);
-						shiftAssigned = true;
 						
+//						for(ShiftProperties substituteShift : substituteShifts) {
+//							if(substituteShift.getDate().equals(teacherShift.getDate()) && substituteShift.getPeriod().equals(teacherShift.getPeriod())) {
+//								shiftAssigned = false;
+//							}
+//							else {
+//								substituteTeacher.setShift(teacherShift);
+//								shiftAssigned = true;
+//							}
+//						}
 					}
-					
 					else {
 						substituteTeacher.setShift(teacherShift);
 						shiftAssigned = true;
+						System.out.println("Got assigned right away");
+						break;
 					}
+					
+					//substituteShifts.clear();
 				} //end while loop
 				
 			} //end loop that goes through each shift assigned to one teacher
