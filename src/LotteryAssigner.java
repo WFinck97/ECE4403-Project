@@ -14,7 +14,7 @@ public class LotteryAssigner {
 			ArrayList<ShiftProperties> teacherShifts = teacher.getShifts();
 			
 			//for each shift for one absent teacher - assuming that multiple absent shifts can be assigned to a single teacher
-			for(ShiftProperties shifts : teacherShifts) {
+			for(ShiftProperties teacherShift : teacherShifts) {
 				
 				//pick a substitute randomly and check whether or not they have already been assigned that shift.
 				int numSubstitutes = substituteTeachers.size();
@@ -23,6 +23,14 @@ public class LotteryAssigner {
 				
 				//get shifts from randomly picked substitute teacher
 				ArrayList<ShiftProperties> absentShifts = substituteTeacher.getShifts();
+				
+				//only loop through assigned shifts if the teacher has been assigned anything
+				if(absentShifts.size() > 0) {
+					for
+				}
+				else {
+					
+				}
 			}
 		}
 	}
