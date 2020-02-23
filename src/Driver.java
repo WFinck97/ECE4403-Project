@@ -16,17 +16,9 @@ public class Driver {
 		
 		ArrayList<AbsentTeacher> absentTeachers = new ArrayList<AbsentTeacher>();
 		ArrayList<SubstituteTeacher> substituteTeachers = new ArrayList<SubstituteTeacher>();
-		// TODO Auto-generated method stub
-		//
-		// Reading from a CSV file using the CSVParser class
-		//
-		// The 2nd argument provided to the constructor indicates that the first line of the file
-		// contains the label for each column
-		//
+		
 		CSVParser absencesParser = new CSVParser(new FileReader("absences.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
 
-		// After constructed, we can loop through each row of the CSV file using a for-each loop
-		// We access the data in each column using the corresponding column label
 		for (CSVRecord record : absencesParser) {
 			AbsentTeacher absentTeacher = new AbsentTeacher();
 			ShiftProperties shift = new ShiftProperties();
@@ -43,21 +35,12 @@ public class Driver {
 			
 			absentTeacher.setShift(shift);
 			absentTeachers.add(absentTeacher);
-			System.out.println(shift.getDate());
 		}
-		
-		
-		
-		System.out.println("first index: " + absentTeachers.get(1).getName());
-		System.out.println("first index: " + absentTeachers.get(0).getName());
-		
-		// Remember to close all input and output streams when you are done processing them
+
 		absencesParser.close();
 		
 		CSVParser substitutesParser = new CSVParser(new FileReader("substitutes.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
 
-		// After constructed, we can loop through each row of the CSV file using a for-each loop
-		// We access the data in each column using the corresponding column label
 		for (CSVRecord record : substitutesParser) {
 			SubstituteTeacher substituteTeacher = new SubstituteTeacher();
 			String name = record.get("name");
@@ -68,13 +51,10 @@ public class Driver {
 			substituteTeachers.add(substituteTeacher);
 		}
 		
-		
-		
-		System.out.println("first index: " + substituteTeachers.get(1).getName());
-		System.out.println("first index: " + substituteTeachers.get(0).getName());
-		
-		// Remember to close all input and output streams when you are done processing them
 		substitutesParser.close();
+		
+		// call the lottery function and assign shifts to substitutes
+		// take the assignments and put in a csv output file
 	}
 	
 
