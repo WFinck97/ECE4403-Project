@@ -41,17 +41,17 @@ public class Driver {
 		CSVParser substitutesParser = new CSVParser(new FileReader("substitutes.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
 
 		for (CSVRecord record : substitutesParser) {
+			SubstituteTeacher substituteTeacher = new SubstituteTeacher();
 			String name = record.get("name");
-			for(SubstituteTeacher sub : substituteTeachers) {
-				if(sub.getName().equals(name)) { 
-					sub.setUnavailableShift(shift);
-				}
-			}
+			String teachables = record.get("teachables");
+			String blacklist = record.get("blacklist");
 			
+			substituteTeacher.setName(name);
 			substituteTeachers.add(substituteTeacher);
 		}
 		
 		substitutesParser.close();
+		
 		
 		
 		CSVParser unavailabilitiesParser = new CSVParser(new FileReader("unavailabilities.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
@@ -59,14 +59,8 @@ public class Driver {
 		for (CSVRecord record : unavailabilitiesParser) {
 			SubstituteTeacher substituteTeacher = new SubstituteTeacher();
 			String name = record.get("name");
-			String date = record.get("date");
-			String blacklist = record.get("blacklist");
-			
-			String period = record.get("period");
-			String teacher = record.get("teacher");
-			String location = record.get("location");
 			String teachables = record.get("teachables");
-			
+			String blacklist = record.get("blacklist");
 			
 			substituteTeacher.setName(name);
 			substituteTeachers.add(substituteTeacher);
