@@ -1,10 +1,11 @@
 
 public class wesisdrivingmecrazy {
 
-	public static void main(String[] args) {
+	public wesisdrivingmecrazy(){
+	
 		// TODO Auto-generated method stub
 System.out.println("I am not incompetent");
 System.out.println("Whatsup fucks");
-	}
 
+	}
 }
