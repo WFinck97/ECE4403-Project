@@ -43,34 +43,37 @@ public class Driver {
 		for (CSVRecord record : substitutesParser) {
 			SubstituteTeacher substituteTeacher = new SubstituteTeacher();
 			String name = record.get("name");
-			String teachables = record.get("teachables");
+			String teachable = record.get("teachables");
 			String blacklist = record.get("blacklist");
 			
 			substituteTeacher.setName(name);
+			substituteTeacher.setTeachable(teachable);
+			substituteTeacher.setBlacklist(blacklist);
 			substituteTeachers.add(substituteTeacher);
 		}
 		
 		substitutesParser.close();
-		
-		
 		
 		CSVParser unavailabilitiesParser = new CSVParser(new FileReader("unavailabilities.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
 
-		for (CSVRecord record : unavailabilitiesParser) {
-			SubstituteTeacher substituteTeacher = new SubstituteTeacher();
-			String name = record.get("name");
-			String teachables = record.get("teachables");
-			String blacklist = record.get("blacklist");
+		for (CSVRecord record : unavailabilitiesParser) { 
+			 
+			String name = record.get("substitute");
+			String date = record.get("date");
+			String period = record.get("period");
 			
-			substituteTeacher.setName(name);
-			substituteTeachers.add(substituteTeacher);
+			ShiftProperties unavailableShift = new ShiftProperties();
+			unavailableShift.setDate(date);
+			unavailableShift.setPeriod(period);
+			
+			 for (SubstituteTeacher sub : substituteTeachers){
+				 if (name.equals(sub.getName())) {
+					 sub.setUnavailableShift(unavailableShift);
+				 }
+			 }
 		}
 		
-		substitutesParser.close();
-		
-		
-		
-		
+		unavailabilitiesParser.close();
 		
 		// call the lottery function and assign shifts to substitutes
 		// take the assignments and put in a csv output file
