@@ -42,10 +42,10 @@ public class LotteryAssigner {
 					//only loop through assigned shifts if the teacher has been assigned anything
 					if(substituteShifts.size() > 0) {
 						
+						// assume able to assign shift
+						shiftAssigned = true;
+						
 						for(int i = 0; i < substituteShifts.size(); i++) {
-							
-							// assume able to assign shift
-							shiftAssigned = true;
 							
 								for(int j = 0; j < unavailSubstituteShifts.size(); i++) {
 									
@@ -61,7 +61,12 @@ public class LotteryAssigner {
 							else {
 								
 							}
-						}	
+						}
+						
+						if(shiftAssigned) {
+							substituteTeacher.setShift(teacherShift);
+
+						}
 					}
 					else {
 						substituteTeacher.setShift(teacherShift);
