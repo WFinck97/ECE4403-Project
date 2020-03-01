@@ -68,7 +68,7 @@ public class Driver {
 			
 			 for (SubstituteTeacher sub : substituteTeachers){
 				 if (name.equals(sub.getName())) {
-					 sub.setUnavailableShift(unavailableShift);
+					 sub.setUnavailableShifts(unavailableShift);
 				 }
 			 }
 		}

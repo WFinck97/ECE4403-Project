@@ -39,14 +39,12 @@ public class SubstituteTeacher {
 		return shifts;
 	}
 	
-	public void setUnavailableShift(ShiftProperties shift) {
+	public void setUnavailableShifts(ShiftProperties shift) {
 		this.unavailableShifts.add(shift);
 	}
 	
-	public ArrayList<ShiftProperties> getUnavailableShift() {
+	public ArrayList<ShiftProperties> getUnavailableShifts() {
 		return unavailableShifts;
 	}
-
-
 	
 }
