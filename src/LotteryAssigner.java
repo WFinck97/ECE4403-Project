@@ -37,26 +37,30 @@ public class LotteryAssigner {
 					
 					// get unavailabilities shifts from availabilities 
 					unavailSubstituteShifts = substituteTeacher.getUnavailableShifts();	
-					
+					//only loop through assigned shifts if the teacher has been assigned anything
+
 					//only loop if substitute has previously assigned shifts or unavailabilites
 					if(substituteShifts.size() > 0 || unavailSubstituteShifts.size() > 0 ) {
-						//only loop through assigned shifts if the teacher has been assigned anything
-						if(substituteShifts.size() > 0) {						
+						
+					//only loop through assigned shifts if the teacher has been assigned anything				
+						if(substituteShifts.size() > 0) {
+							
+							// assume able to assign shift
+							shiftAssigned = true;
+							
 							for(int i = 0; i < substituteShifts.size(); i++) {
 								
-								// If sub and teach have coinciding availabilities then dont assign teach
-								if(substituteShifts.get(i).getDate().equals(teacherShift.getDate()) && substituteShifts.get(i).getPeriod().equals(teacherShift.getPeriod())) {
-									shiftAssigned = false;
-									assign = false;
-									//break;
-								} 							
-								else {
-									shiftAssigned = true;
-									break;
+									for(int j = 0; j < unavailSubstituteShifts.size(); i++) {
+										
+										// If the sub teach has unavailabilities then do not assign
+										if((unavailSubstituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (unavailSubstituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
+											shiftAssigned = false;
+										}	
+									}
 								}
-							}
-						} 
-						//only loop if sub has unavailabilities
+							} 
+						
+						//only enter loop if sub has unavailabilities
 						if(unavailSubstituteShifts.size() > 0) {
 						
 							for(int j = 0; j < unavailSubstituteShifts.size(); j++) {
@@ -71,9 +75,8 @@ public class LotteryAssigner {
 									shiftAssigned = true;
 								}
 							}
-						}	
+						}
 					}
-					
 					// only enter if all cases above have been tested and proven false
 					if(shiftAssigned || assign) {
 						substituteTeacher.setShift(teacherShift);
@@ -85,3 +88,5 @@ public class LotteryAssigner {
 		} //end loop that goes through each teacher
 	}
 }
+
+			
