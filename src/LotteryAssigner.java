@@ -44,6 +44,9 @@ public class LotteryAssigner {
 						
 						for(int i = 0; i < substituteShifts.size(); i++) {
 							
+							// assume able to assign shift
+							shiftAssigned = true;
+							
 								for(int j = 0; j < unavailSubstituteShifts.size(); i++) {
 									
 									// If the sub teach has unavailabilities then do not assign
@@ -56,9 +59,7 @@ public class LotteryAssigner {
 								shiftAssigned = false;
 							}
 							else {
-								substituteTeacher.setShift(teacherShift);
-								shiftAssigned = true;
-								break;
+								
 							}
 						}	
 					}
