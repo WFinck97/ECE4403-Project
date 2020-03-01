@@ -39,6 +39,9 @@ public class LotteryAssigner {
 					// get unavailabilities shifts from availabilities 
 					unavailSubstituteShifts = substituteTeacher.getUnavailableShift();
 					
+					
+					// check if the teacherShift matches the substitutes unavailable list
+									
 					//only loop through assigned shifts if the teacher has been assigned anything
 					if(substituteShifts.size() > 0) {
 						
@@ -52,7 +55,7 @@ public class LotteryAssigner {
 									// If the sub teach has unavailabilities then do not assign
 									if((unavailSubstituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (unavailSubstituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
 										shiftAssigned = false;
-																			}	
+									}	
 								}
 							// If sub and teach have coinciding availabilities then 
 							if(substituteShifts.get(i).getDate().equals(teacherShift.getDate()) && substituteShifts.get(i).getPeriod().equals(teacherShift.getPeriod())) {
