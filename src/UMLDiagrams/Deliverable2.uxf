@@ -5,16 +5,12 @@
     <id>UMLClass</id>
     <coordinates>
       <x>340</x>
-      <y>30</y>
+      <y>120</y>
       <w>360</w>
-      <h>180</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;JavaDriver&gt;&gt;
 Driver Class
---
--ArrayList&lt;TeacherAbsences&gt; teacherAbsences 
--ArrayList&lt;TeacherSubstitute&gt; teacherSubstitute
-style=wordwrap
 --
 (+) main(String[] arg)
 </panel_attributes>
@@ -23,57 +19,50 @@ style=wordwrap
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>140</x>
-      <y>480</y>
-      <w>210</w>
-      <h>110</h>
+      <x>50</x>
+      <y>500</y>
+      <w>300</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>&lt;&lt;JavaClass&gt;&gt;
 ShiftProperties
 --
-- String date
-- String date
-- String date
---
-+ setDate(String date): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>140</x>
-      <y>260</y>
-      <w>210</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;JavaClass&gt;&gt;
-TeacherSubstitute
---
--String name
--ArrayList&lt;ShiftProperties&gt; assignedShifts
+(-)String date;
+(-)String location;
+(-)String period;
 style=wordwrap
-
 --
-(+) String getName()
-(+) ShiftProperties getShift()
-
-</panel_attributes>
+(+) void setDate(String date)	
+(+)void setLocation(String location)
+(+)void setPeriod(String period)
+(+)String getDate()
+(+)String getLocation()
+(+)String getPeriod()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>260</y>
-      <w>200</w>
-      <h>190</h>
+      <x>650</x>
+      <y>250</y>
+      <w>280</w>
+      <h>330</h>
     </coordinates>
     <panel_attributes>&lt;&lt;JavaClass&gt;&gt;
-AssignmentLottery
+LotteryAssigner
 --
 -String name
+-int numSubstitutes;
+-int randSubstitute;
+-SubstituteTeacher substituteTeacher;
+-ArrayList&lt;ShiftProperties&gt; substituteShifts;
+-ArrayList&lt;ShiftProperties&gt; unavailSubstituteShifts;
+-boolean shiftAssigned
+-boolean assign
+-Random randomGenerator
+-ArrayList&lt;ShiftProperties&gt; teacherShifts
 --
-(+) void assignRandom(ArrayList&lt;TeacherAbsences&gt;, ArrayList&lt;TeacherSubstitute&gt;
+(+) void RandomAssign(ArrayList&lt;TeacherAbsences&gt;, ArrayList&lt;TeacherSubstitute&gt;
 style=wordwrap
 </panel_attributes>
     <additional_attributes/>
@@ -82,7 +71,7 @@ style=wordwrap
     <id>Relation</id>
     <coordinates>
       <x>560</x>
-      <y>200</y>
+      <y>190</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
@@ -94,7 +83,7 @@ style=wordwrap
     <id>Relation</id>
     <coordinates>
       <x>470</x>
-      <y>200</y>
+      <y>190</y>
       <w>30</w>
       <h>80</h>
     </coordinates>
@@ -106,7 +95,7 @@ style=wordwrap
     <id>Relation</id>
     <coordinates>
       <x>240</x>
-      <y>200</y>
+      <y>190</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
@@ -118,7 +107,7 @@ style=wordwrap
     <id>Relation</id>
     <coordinates>
       <x>230</x>
-      <y>440</y>
+      <y>460</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -129,35 +118,65 @@ style=wordwrap
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>370</x>
-      <y>260</y>
-      <w>210</w>
+      <x>330</x>
+      <y>250</y>
+      <w>300</w>
       <h>190</h>
     </coordinates>
     <panel_attributes>&lt;&lt;JavaClass&gt;&gt;
-TeacherAbsences
+AbsencesTeacher
 --
 -String name
 -ArrayList&lt;ShiftProperties&gt; absentShifts
 style=wordwrap
 
 --
-(+) String getName()
-(+) String getLocation()
-(+) String getTime()
-(+) String getDate()</panel_attributes>
+(+)void setName()
+(+)void setShift()
+(+)String getName()
+(+)ArrayList&lt;ShiftProperties&gt; getShifts()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>340</x>
-      <y>440</y>
+      <y>430</y>
       <w>150</w>
-      <h>80</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;60.0;130.0;60.0;130.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;130.0;170.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>250</y>
+      <w>280</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;JavaClass&gt;&gt;
+SubstituteTeacher
+--
+(-)String name;
+(-)String teachable;
+(-)String blacklist;
+(-)ArrayList&lt;ShiftProperties&gt; shifts = new ArrayList&lt;ShiftProperties&gt;();
+(-)ArrayList&lt;ShiftProperties&gt; unavailableShifts = new ArrayList&lt;ShiftProperties&gt;();
+style=wordwrap
+--
+(+)void setName(String name)	
+(+)void setShift(ShiftProperties shift)	
+(+)void setTeachable(String teachable)
+(+)void setBlacklist(String blacklist)
+(+)String getName() 
+(+)String getTeachable() 
+(+)String getBlacklist() 
+(+)ArrayList&lt;ShiftProperties&gt; getShifts()
+(+)void setUnavailableShifts(ShiftProperties shift) 
+(+)ArrayList&lt;ShiftProperties&gt; getUnavailableShifts()</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
