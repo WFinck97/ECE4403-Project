@@ -19,11 +19,14 @@ public class ShiftAssigner {
 					for(ShiftProperties shift : shifts) {
 						if(oncallLocation.equals(shift.getLocation())){
 							sub.setShift(shift);
-							//absentTeacher.removeShift(shift);
+							
+							// keep track of the indices of the shifts have have been taken by on call substitutes
 							indexOfCoveredShift.add(shifts.indexOf(shift));
 						}
 					}
 					
+					
+					//remove the shifts that have been covered by on call substitute from list of absent shifts (no longer an absent shift)
 					for(int index : indexOfCoveredShift) {
 						absentTeacher.removeShift(index);
 					}
