@@ -19,4 +19,8 @@ public class AbsentTeacher {
 	public ArrayList<ShiftProperties> getShifts() {
 		return shifts;
 	}
+	
+	public void removeShift(int index) {
+		this.shifts.remove(index);
+	}
 }

@@ -6,6 +6,34 @@ public class ShiftAssigner {
 	
 	public static void oncallAssign(ArrayList<AbsentTeacher> absentTeachers, ArrayList<SubstituteTeacher> substituteTeachers) {
 		// run through the substitute teachers and check if they have any on call locations, if they do, check the list of absence, assign, and remove that shift from the list of absent shifts.
+		
+		
+		for(SubstituteTeacher sub : substituteTeachers) {
+			for(String oncallLocation : sub.getOncallLocations()) {
+				// check if there are any shifts at this location
+				System.out.println("oncallLocation: " + oncallLocation);
+				for(AbsentTeacher absentTeacher : absentTeachers) {
+					
+					ArrayList<Integer> indexOfCoveredShift = new ArrayList<Integer>();
+					ArrayList<ShiftProperties> shifts = absentTeacher.getShifts();
+					for(ShiftProperties shift : shifts) {
+						if(oncallLocation.equals(shift.getLocation())){
+							sub.setShift(shift);
+							//absentTeacher.removeShift(shift);
+							indexOfCoveredShift.add(shifts.indexOf(shift));
+						}
+					}
+					
+					for(int index : indexOfCoveredShift) {
+						absentTeacher.removeShift(index);
+					}
+					
+					
+				}
+			}
+		}
+		
+		
 	}
 	
 	
