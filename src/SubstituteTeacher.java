@@ -6,6 +6,7 @@ public class SubstituteTeacher {
 	private String blacklist;
 	private ArrayList<ShiftProperties> shifts = new ArrayList<ShiftProperties>();
 	private ArrayList<ShiftProperties> unavailableShifts = new ArrayList<ShiftProperties>();
+	private ArrayList<String> oncallLocations = new ArrayList<String>();
 	
 	public void setName(String name) {
 		this.name = name;
@@ -21,6 +22,10 @@ public class SubstituteTeacher {
 
 	public void setBlacklist(String blacklist) {
 		this.blacklist = blacklist;
+	}
+	
+	public void addOncallLocation(String location) {
+		this.oncallLocations.add(location);
 	}
 	
 	public String getName() {
@@ -45,6 +50,10 @@ public class SubstituteTeacher {
 	
 	public ArrayList<ShiftProperties> getUnavailableShifts() {
 		return unavailableShifts;
+	}
+	
+	public ArrayList<String> getOncallLocations(){
+		return this.oncallLocations;
 	}
 	
 }

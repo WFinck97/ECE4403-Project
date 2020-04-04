@@ -43,6 +43,23 @@ public class Driver {
 		
 		unavailabilitiesParser.close();
 		
+		CSVParser oncallParser = new CSVParser(new FileReader("oncalls.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
+
+		for (CSVRecord record : oncallParser) { 
+			 
+			String name = record.get("substitute");
+			String location = record.get("location");
+			
+			System.out.println(name + ":" + location);
+			 for (SubstituteTeacher sub : substituteTeachers){
+				 if (name.equals(sub.getName())) {
+					 sub.addOncallLocation(location);
+				 }
+			 }
+		}
+		
+		oncallParser.close();
+		
 		// call the lottery function and assign shifts to substitutes
 		// take the assignments and put in a csv output file
 		
