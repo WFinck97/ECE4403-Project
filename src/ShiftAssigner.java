@@ -11,7 +11,6 @@ public class ShiftAssigner {
 		for(SubstituteTeacher sub : substituteTeachers) {
 			for(String oncallLocation : sub.getOncallLocations()) {
 				// check if there are any shifts at this location
-				System.out.println("oncallLocation: " + oncallLocation);
 				for(AbsentTeacher absentTeacher : absentTeachers) {
 					
 					ArrayList<Integer> indexOfCoveredShift = new ArrayList<Integer>();
