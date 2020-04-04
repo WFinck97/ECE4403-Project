@@ -50,7 +50,6 @@ public class Driver {
 			String name = record.get("substitute");
 			String location = record.get("location");
 			
-			System.out.println(name + ":" + location);
 			 for (SubstituteTeacher sub : substituteTeachers){
 				 if (name.equals(sub.getName())) {
 					 sub.addOncallLocation(location);
@@ -60,10 +59,12 @@ public class Driver {
 		
 		oncallParser.close();
 		
+		// go through and assign based on the on call list, then go and assign the rest randomly
+		
 		// call the lottery function and assign shifts to substitutes
 		// take the assignments and put in a csv output file
 		
-		LotteryAssigner.RandomAssign(absentTeachers, substituteTeachers);
+		ShiftAssigner.randomAssign(absentTeachers, substituteTeachers);
 		
 		OutputWriter.assignmentCSVOut("assignments.csv", substituteTeachers);
 		
