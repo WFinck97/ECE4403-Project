@@ -48,18 +48,8 @@ public class Driver {
 		
 		LotteryAssigner.RandomAssign(absentTeachers, substituteTeachers);
 		
-		CSVPrinter csvPrinter = new CSVPrinter(new FileWriter("assignments.csv"), CSVFormat.EXCEL.withHeader("substitute teacher", "date", "period", "location"));
+		OutputWriter.assignmentCSVOut("assignments.csv", substituteTeachers);
 		
-		//basically for each assigned shift make an entry (rather than only show a name once and all the shifts to that person
-		for(SubstituteTeacher subTeacher : substituteTeachers) {
-			
-			for(ShiftProperties shift : subTeacher.getShifts()) {
-				
-				csvPrinter.printRecord(subTeacher.getName(), shift.getDate(), shift.getPeriod(), shift.getLocation());
-			}
-		}
-		
-		csvPrinter.close();
 	}
 	
 
