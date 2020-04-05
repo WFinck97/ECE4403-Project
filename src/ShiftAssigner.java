@@ -76,27 +76,25 @@ public class ShiftAssigner {
 					//only loop if substitute has previously assigned shifts or unavailabilites
 					if(substituteShifts.size() > 0 || unavailSubstituteShifts.size() > 0 ) {
 						
-					//only loop through assigned shifts if the teacher has been assigned anything				
+						
+						//only loop through assigned shifts if the teacher has been assigned anything				
 						if(substituteShifts.size() > 0) {
-							
+								
 							// assume able to assign shift
 							shiftAssigned = true;
-							
-							for(int i = 0; i < substituteShifts.size(); i++) {
-								
-									for(int j = 0; j < unavailSubstituteShifts.size(); i++) {
+															
+							for(int j = 0; j < substituteShifts.size(); j++) {
 										
-										// If the sub teach has unavailabilities then do not assign
-										if((unavailSubstituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (unavailSubstituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
-											shiftAssigned = false;
-										}	
-									}
-								}
-							} 
+								// If the sub teach has unavailabilities then do not assign
+								if((substituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (substituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
+									shiftAssigned = false;										
+								}	
+							}
+						} 
 						
 						//only enter loop if sub has unavailabilities
 						if(unavailSubstituteShifts.size() > 0) {
-						
+													
 							for(int j = 0; j < unavailSubstituteShifts.size(); j++) {
 								// If the sub teach has unavailabilities then do not assign and break loop
 								if((unavailSubstituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (unavailSubstituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
@@ -111,11 +109,20 @@ public class ShiftAssigner {
 							}
 						}
 					}
+
 					// only enter if all cases above have been tested and proven false
 					if(shiftAssigned || assign) {
-						substituteTeacher.setShift(teacherShift);
-						shiftAssigned = true;
-						break;
+						//check to see if location is blacklisted by substitute
+						if(teacherShift.getLocation().equals(substituteTeacher.getBlacklist())) {
+							shiftAssigned = false;
+							assign = false;
+						}	
+						else
+						{
+							substituteTeacher.setShift(teacherShift);
+							shiftAssigned = true;
+							break;
+						}
 					}
 				} //end while loop	
 			} //end loop that goes through each shift assigned to one teacher
