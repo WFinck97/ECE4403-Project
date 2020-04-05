@@ -66,10 +66,6 @@ public class ShiftAssigner {
 					randSubstitute = randomGenerator.nextInt(numSubstitutes);
 					substituteTeacher = substituteTeachers.get(randSubstitute);
 					
-					System.out.println("");
-					System.out.println("Sub teacher: " +  substituteTeacher.getName());
-					System.out.println("Shift: " + teacherShift.getDate());
-					
 					//get shifts from randomly picked substitute teacher
 					substituteShifts = substituteTeacher.getShifts();
 					
@@ -83,9 +79,7 @@ public class ShiftAssigner {
 						
 						//only loop through assigned shifts if the teacher has been assigned anything				
 						if(substituteShifts.size() > 0) {
-							
-							System.out.println("Sub has previous shifts");
-							
+								
 							// assume able to assign shift
 							shiftAssigned = true;
 															
@@ -94,55 +88,38 @@ public class ShiftAssigner {
 								// If the sub teach has unavailabilities then do not assign
 								if((substituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (substituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
 									shiftAssigned = false;										
-									System.out.println("Shift not assigned due to prev shifts");
 								}	
 							}
 						} 
 						
 						//only enter loop if sub has unavailabilities
 						if(unavailSubstituteShifts.size() > 0) {
-							
-							System.out.println("Sub has unavails");
-						
+													
 							for(int j = 0; j < unavailSubstituteShifts.size(); j++) {
 								// If the sub teach has unavailabilities then do not assign and break loop
 								if((unavailSubstituteShifts.get(j).getDate().equals(teacherShift.getDate())) && (unavailSubstituteShifts.get(j).getPeriod().equals(teacherShift.getPeriod())) ) {
 									shiftAssigned = false;
 									assign = false;
-									System.out.println("Shift not assigned due to unavails");
 									break;
 								}
 								else {
 									// tentatively assign shift
-									System.out.println("Shift Assigned in unavailability Loop");
 									shiftAssigned = true;
 								}
 							}
 						}
 					}
-					// enter if location is on substitute teacher's blacklist
 
-					System.out.println(shiftAssigned);
-					System.out.println("Location of shift: "+ teacherShift.getLocation());
-					System.out.println("Location of blacklist: "+ substituteTeacher.getBlacklist());
-
-/*					if(teacherShift.getLocation().equals(substituteTeacher.getBlacklist())) {
-						System.out.println("made it");
-						shiftAssigned = false;
-						assign = false;
-					}
-					*/
 					// only enter if all cases above have been tested and proven false
 					if(shiftAssigned || assign) {
+						//check to see if location is blacklisted by substitute
 						if(teacherShift.getLocation().equals(substituteTeacher.getBlacklist())) {
-							System.out.println("made it");
 							shiftAssigned = false;
 							assign = false;
 						}	
 						else
 						{
-							System.out.println("Assigned");
-								substituteTeacher.setShift(teacherShift);
+							substituteTeacher.setShift(teacherShift);
 							shiftAssigned = true;
 							break;
 						}
