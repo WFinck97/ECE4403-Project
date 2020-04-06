@@ -75,15 +75,17 @@ public class Driver {
 		
 		// call the lottery function and assign shifts to substitutes
 		// take the assignments and put in a csv output file
+		ShiftAssigner.suitablilityAssign(absentTeachers, substituteTeachers);
 		
 		ShiftAssigner.oncallAssign(absentTeachers, substituteTeachers);
 
 		ShiftAssigner.preferredAssign(absentTeachers,substituteTeachers);
 
 		ShiftAssigner.randomAssign(absentTeachers, substituteTeachers);
+
 		
 		OutputWriter.assignmentCSVOut("assignments.csv", substituteTeachers);
-		
+
 	}
 	
 

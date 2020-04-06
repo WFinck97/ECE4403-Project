@@ -1,12 +1,18 @@
+
+//import java.util.List;
+import java.util.Arrays;
 import java.util.ArrayList;
+
 
 public class SubstituteTeacher {
 	private String name;
-	private String teachable;
+	//private String teachable;
 	private String blacklist;
 	private ArrayList<ShiftProperties> shifts = new ArrayList<ShiftProperties>();
 	private ArrayList<ShiftProperties> unavailableShifts = new ArrayList<ShiftProperties>();
 	private ArrayList<String> oncallLocations = new ArrayList<String>();
+	private ArrayList<String> teachableList;
+	//private ArrayList<String> teachableList = new ArrayList<String>();
 	
 	public void setName(String name) {
 		this.name = name;
@@ -17,7 +23,15 @@ public class SubstituteTeacher {
 	}
 	
 	public void setTeachable(String teachable) {
-		this.teachable = teachable;
+		//this.teachable = teachable;
+		teachableList = new ArrayList<String>(Arrays.asList(teachable.split("\n")));
+//		for (String s: teachableList) {
+//		System.out.println(s);
+//		}
+		
+	}
+	public ArrayList<String> getTeachable() {
+		return teachableList;
 	}
 
 	public void setBlacklist(String blacklist) {
@@ -30,10 +44,6 @@ public class SubstituteTeacher {
 	
 	public String getName() {
 		return this.name;
-	}
-	
-	public String getTeachable() {
-		return teachable;
 	}
 	
 	public String getBlacklist() {
