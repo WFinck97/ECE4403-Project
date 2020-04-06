@@ -17,20 +17,18 @@ public class ShiftAssigner {
 					ArrayList<ShiftProperties> shifts = absentTeacher.getShifts();
 					for(ShiftProperties shift : shifts) {
 						if(oncallLocation.equals(shift.getLocation())){
-							sub.setShift(shift);
-							
+							//make sure the oncall sub can be assigned
+							if (ShiftAssigner.checkShiftPossibility(shift, sub)){
+								sub.setShift(shift);
+							}
 							// keep track of the indices of the shifts have have been taken by on call substitutes
 							indexOfCoveredShift.add(shifts.indexOf(shift));
 						}
 					}
-					
-					
 					//remove the shifts that have been covered by on call substitute from list of absent shifts (no longer an absent shift)
 					for(int index : indexOfCoveredShift) {
 						absentTeacher.removeShift(index);
 					}
-					
-					
 				}
 			}
 		}
@@ -42,35 +40,41 @@ public class ShiftAssigner {
 		
 		for(AbsentTeacher absentTeacher : absentTeachers) {
 		int MAX = 0;
+		SubstituteTeacher mostSuitable = null;
+		//Get Teachables for teacher. It was assumed teachables applied to the teacher-level and not to the shift
 		ArrayList<String> absTeachTeachables = absentTeacher.getTeachable();
+		//Get Shifts for teacher that teachables applies too
 		ArrayList<ShiftProperties> shifts = absentTeacher.getShifts();
+		//Pay attention to covered shifts removed from teacher
 		ArrayList<Integer> indexOfCoveredShift = new ArrayList<Integer>();
-		
-			for(SubstituteTeacher sub : substituteTeachers) {
+			for(ShiftProperties shift : shifts) {
+				//find sub that can best cover shift
 				int count = 0;
-				//System.out.println( sub.getName());
-				ArrayList<String> subTeachTeachables = sub.getTeachable();
-				
-				for(ShiftProperties shift : shifts) {
-				// Finding where the max number of overlapping teachables for each absence 
+				for(SubstituteTeacher sub : substituteTeachers) {
+					ArrayList<String> subTeachTeachables = sub.getTeachable();
+					// Finding where the max number of overlapping teachables for each absence
 					for(String a: absTeachTeachables) {
 						for(String s: subTeachTeachables) {
-							//System.out.println("Absent Teacher named " + absentTeacher.getName() + " needs a teacher for " + a + " and " + sub.getName()+ " specializes in " + s );
-							if(a.equals(s)){ 
+							if(a.equals(s)){
+								//count is number of teachables sub has that match up with absent teacher
 								count++;
 							}
-							//System.out.println(count);
 						}
 					}					
 					if (count>MAX) {
-						//System.out.println(count);
-						sub.setShift(shift);
-						// keep track of the indices of the shifts have have been taken by on call substitutes
-						indexOfCoveredShift.add(shifts.indexOf(shift));
-						MAX = count;
+						//Cannot assign most suitable sub if they're not available
+						if (ShiftAssigner.checkShiftPossibility(shift, sub)) {
+							mostSuitable = sub;
+							MAX = count;
+						}
 					}
-				}// End of shifts
-			} // END of substitute teachers
+				}// End of subs
+				//set the most suitable sub if one was found
+				if (mostSuitable != null) {
+					mostSuitable.setShift(shift);
+					indexOfCoveredShift.add(shifts.indexOf(shift));
+				}
+			} // END of shift
 			//remove the shifts that have been covered by on call substitute from list of absent shifts (no longer an absent shift)
 			for(int index : indexOfCoveredShift) {
 				absentTeacher.removeShift(index);
