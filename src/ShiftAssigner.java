@@ -128,5 +128,56 @@ public class ShiftAssigner {
 			} //end loop that goes through each shift assigned to one teacher
 		} //end loop that goes through each teacher
 	}
-	
+
+	static private boolean checkShiftPossibility(ShiftProperties shift, SubstituteTeacher sub) {
+
+		if (shift.getLocation().equals(sub.getBlacklist())) {
+			//sub is blacklisted and cannot be assigned
+			return false;
+		}
+		for (ShiftProperties subShift: sub.getShifts()) {
+			if (subShift.getDate().equals(shift.getDate())) {
+				//sub already has shift assigned at teachers shift date, cannot assign
+				return false;
+			}
+		}
+		for (ShiftProperties unavailableShift: sub.getUnavailableShifts()) {
+			if (unavailableShift.getDate().equals(shift.getDate())) {
+				//sub is unavailable during shift, cannot be assigned
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void preferredAssign(ArrayList<AbsentTeacher> absentTeachers, ArrayList<SubstituteTeacher> substituteTeachers) {
+		//run through the list of absent teachers and see if they have preferred subs. If those subs are available assign them
+		for (AbsentTeacher teacher : absentTeachers) {
+			//check if teacher has preferred sub
+			if (teacher.getPreferredSub() != null) {
+				//loop through sub teachers to find preferred sub
+				for (SubstituteTeacher sub : substituteTeachers) {
+					if (sub.getName().equals(teacher.getPreferredSub())) {
+						//keep track of assigned shifts from sub so they can be removed later
+						ArrayList<Integer> indexOfCoveredShift = new ArrayList<>();
+						for (ShiftProperties shift : teacher.getShifts()) {
+							//once preferred sub is found, try and assign this sub to teachers shifts
+
+							//check if sub can be assigned to teachers shift
+							if (ShiftAssigner.checkShiftPossibility(shift, sub)) {
+								//assign sub to teachers shift
+								sub.setShift(shift);
+								indexOfCoveredShift.add(teacher.getShifts().indexOf(shift));
+							}
+
+						}
+						//remove the shifts that have been covered by on call substitute from list of absent shifts (no longer an absent shift)
+						for (int index : indexOfCoveredShift) {
+							teacher.removeShift(index);
+						}
+					}
+				}
+			}
+		}
+	}
 }

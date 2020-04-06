@@ -58,14 +58,28 @@ public class Driver {
 		}
 		
 		oncallParser.close();
-		
+
+		CSVParser preferredParser = new CSVParser(new FileReader("preferred.csv"), CSVFormat.EXCEL.withFirstRecordAsHeader());
+
+		for (CSVRecord record : preferredParser) {
+
+			String teacherName = record.get("teacher");
+			String preferredSubName = record.get("substitute");
+			for (AbsentTeacher teacher: absentTeachers) {
+				if (teacherName.equals(teacher.getName())) {
+					teacher.setPreferredSub(preferredSubName);
+				}
+			}
+		}
 		// go through and assign based on the on call list, then go and assign the rest randomly
 		
 		// call the lottery function and assign shifts to substitutes
 		// take the assignments and put in a csv output file
 		
 		ShiftAssigner.oncallAssign(absentTeachers, substituteTeachers);
-		
+
+		ShiftAssigner.preferredAssign(absentTeachers,substituteTeachers);
+
 		ShiftAssigner.randomAssign(absentTeachers, substituteTeachers);
 		
 		OutputWriter.assignmentCSVOut("assignments.csv", substituteTeachers);
