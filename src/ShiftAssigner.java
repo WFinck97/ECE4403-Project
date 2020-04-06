@@ -181,7 +181,7 @@ public class ShiftAssigner {
 			return false;
 		}
 		for (ShiftProperties subShift: sub.getShifts()) {
-			if (subShift.getDate().equals(shift.getDate())) {
+			if (subShift.getDate().equals(shift.getDate()) && subShift.getPeriod().equals(shift.getPeriod())) {
 				//sub already has shift assigned at teachers shift date, cannot assign
 				return false;
 			}
