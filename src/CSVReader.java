@@ -15,6 +15,7 @@ public class CSVReader {
 		
 		CSVParser absencesParser = new CSVParser(new FileReader(absencesCSV), CSVFormat.EXCEL.withFirstRecordAsHeader());
 		
+		
 		for (CSVRecord record : absencesParser) {
 			AbsentTeacher absentTeacher = new AbsentTeacher();
 			ShiftProperties shift = new ShiftProperties();
@@ -29,6 +30,7 @@ public class CSVReader {
 			shift.setPeriod(period);
 			shift.setLocation(location);
 			
+			absentTeacher.setTeachable(teachables);
 			absentTeacher.setShift(shift);
 			absentTeachers.add(absentTeacher);
 		}
