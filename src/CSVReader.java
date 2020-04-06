@@ -24,7 +24,7 @@ public class CSVReader {
 			String teacher = record.get("teacher");
 			String location = record.get("location");
 			String teachables = record.get("teachables");
-			
+
 			absentTeacher.setName(teacher);
 			shift.setDate(date);
 			shift.setPeriod(period);
@@ -33,6 +33,7 @@ public class CSVReader {
 			absentTeacher.setTeachable(teachables);
 			absentTeacher.setShift(shift);
 			absentTeachers.add(absentTeacher);
+
 		}
 
 		absencesParser.close();

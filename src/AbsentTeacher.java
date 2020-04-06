@@ -3,7 +3,8 @@ import java.util.Arrays;
 
 public class AbsentTeacher {
 	private String name;
-	private String teachable;
+	private String teachable
+	private String preferredSub;
 	private ArrayList<ShiftProperties> shifts = new ArrayList<ShiftProperties>();
 	private ArrayList<String> teachableList;
 	
@@ -35,6 +36,11 @@ public class AbsentTeacher {
 		return teachableList;
 	}
 	
-	
-	
+	public void setPreferredSub(String subName) {
+		this.preferredSub = subName;
+	}
+
+	public String getPreferredSub() {
+		return this.preferredSub;
+	}
 }
